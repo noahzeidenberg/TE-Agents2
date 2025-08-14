@@ -6,7 +6,7 @@ import yaml
 import os
 from typing import List
 # Import specific functions to avoid circular imports
-from TEUtil_optimized import Triangle, Flat, ProbabilityTable, set_random_seed
+from ABM_files.TEUtil_ABM2 import Triangle, Flat, ProbabilityTable, set_random_seed
 
 def load_config(config_file="example_config.yaml"):
     """Load configuration from YAML file with fallback to defaults"""
@@ -607,7 +607,7 @@ def initialize_probability_tables():
     global Host_mutation, Insertion_effect
     
     # Import vrng here to avoid circular imports
-    from TEUtil_optimized import vrng
+    from ABM_files.TEUtil_ABM2 import vrng
     
     # Host mutation effects (simplified for now)
     # Use simple multipliers instead of lambda functions

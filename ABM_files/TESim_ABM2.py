@@ -27,21 +27,21 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from TEUtil_optimized import (
+from ABM_files.TEUtil_ABM2 import (
     VectorizedRandom, Triangle, Flat, ProbabilityTable, ObjectPool, BitArray,
     triangle_pool, flat_pool, probability_table_pool, 
     batch_random_bool, optimize_memory_usage, set_random_seed
 )
 
 # Initialize vrng after parameters are loaded
-from TEUtil_optimized import vrng
+from ABM_files.TEUtil_ABM2 import vrng
 
 # Ensure vrng is properly initialized
 if vrng is None:
     set_random_seed(None)
 
 # Import parameters - this was missing!
-import parameters_optimized as parameters
+import ABM_files.parameters_ABM2 as parameters
 
 ################################################################################
 # Config-driven logging system
@@ -667,7 +667,7 @@ class SelectiveInsertTE(Element):
             return jump_effects
         
         # Import vrng locally to avoid circular import issues
-        from TEUtil_optimized import vrng
+        from ABM_files.TEUtil_ABM2 import vrng
         
         # Get type-specific death rate
         death_rate = parameters.get_te_death_rate(self.te_type)
@@ -1153,7 +1153,7 @@ class OptimizedChromosome:
                    'LETHAL_J': 0, 'DELETE_J': 0, 'NEUTRA_J': 0, 'BENEFI_J': 0}
         
         # Import vrng locally to avoid circular import issues
-        from TEUtil_optimized import vrng
+        from ABM_files.TEUtil_ABM2 import vrng
         
         # Vectorized death probability calculation
         death_probs = vrng.uniform(size=len(live_tes))
@@ -1361,7 +1361,7 @@ class Host:
                 total_jump_effects[key] += value
         
         # Import vrng locally to avoid circular import issues
-        from TEUtil_optimized import vrng
+        from ABM_files.TEUtil_ABM2 import vrng
         
         # Host mutation with cached random number
         if vrng.uniform() < parameters.Host_mutation_rate and self.fitness > 0.0:
@@ -1514,7 +1514,7 @@ class Population:
             )
             
             # Import vrng locally to avoid circular import issues
-            from TEUtil_optimized import vrng
+            from ABM_files.TEUtil_ABM2 import vrng
             
             # Vectorized random selection
             random_vals = vrng.uniform(size=len(self.individual))
@@ -1943,7 +1943,7 @@ class Experiment:
 def main():
     """Optimized main execution with performance monitoring."""
     if len(sys.argv) != 1:
-        sys.stderr.write("Usage: python TESim_optimized.py\n")
+        sys.stderr.write("Usage: python TESim_ABM2.py\n")
         sys.exit(-1)
     
     # Set random seed for reproducibility
