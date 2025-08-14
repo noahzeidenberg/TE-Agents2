@@ -1,0 +1,164 @@
+# Example configuration file for TE simulation with autonomous/non-autonomous TEs
+# This file demonstrates the new TE type system and autonomous behavior
+
+# Output control - determines what gets printed during simulation (i.e. level of verbosity)
+output:
+  splat: false # default false
+  splat_fitness: false # default false
+  initialization: true # default true
+  generation: false # default false
+  host_extinction: true # default true
+  te_extinction: true # default true
+  trial_no: true # default true
+  gene_init: false # default false
+  te_init: false # default false
+  performance: true # default true
+
+# Logging configuration
+logging:
+  level: INFO # INFO, DEBUG, WARNING, ERROR, CRITICAL
+  to_file: false # True or False
+  file_path: ./logs/simulation.log # path to log file
+
+# Performance optimization settings
+performance:
+  use_parallel: true
+  max_workers: 22
+  batch_size: 300
+  cache_statistics: true
+  use_intervaltree: true
+  use_bit_arrays: true
+  memory_optimize_freq: 50
+  trace_frequency: 1
+
+# Simulation parameters
+simulation:
+  initial_genes: 200
+  initial_tes: 60
+  junk_bp: 140000  # 1.4 Mbp
+  carrying_capacity: 300 # max tes at a given time
+  maximum_generations: 100
+  host_start_fitness: 1.0
+  host_mutation_rate: 0.03
+  te_death_rate: 0.5
+  te_excision_rate: 0.1
+  append_gene: true # if true, the simulation will append a gene to the end of the chromosome when a TE is inserted
+  terminate_no_tes: true # if true, the simulation will terminate when there are no TEs left
+  save_frequency: 25 # how often to save the simulation (in generations)
+
+# Gene subtype configuration
+genes:
+  subtypes:
+    ORF:
+      length: 800 # default 1500
+      frequency: 0.6  # 60% of genes are ORFs
+      fitness_contribution: 1.0
+      mutation_sensitivity: 0.8
+      te_insertion_effect: high # high, medium, low
+    promoter:
+      length: 400
+      frequency: 0.25  # 25% of genes are promoters
+      fitness_contribution: 0.3
+      mutation_sensitivity: 0.9
+      te_insertion_effect: high
+    enhancer:
+      length: 600 # default 500
+      frequency: 0.15  # 15% of genes are enhancers
+      fitness_contribution: 0.5
+      mutation_sensitivity: 0.7
+      te_insertion_effect: medium
+
+# TE type configuration with autonomous/non-autonomous support
+tes:
+  types:
+    #  SINE:
+    #    length: 300
+    #    frequency: 0.4  # 40% of TEs are SINEs
+    #    autonomous: false  # SINEs are typically non-autonomous
+    #    parasitizes: [LINE]  # SINEs parasitize LINEs specifically
+    #    death_rate: 0.3
+    #    excision_rate: 0.0  # Retrotransposons don't excise
+    #    progeny_distribution: [0.15, 0, 0.55, 1, 0.30, 2]
+    LINE:
+      length: 1000 # default 6000
+      frequency: 1  # 100% of TEs are LINEs
+      autonomous: true  # LINEs are typically autonomous
+      parasitizes: []  # Autonomous TEs don't parasitize others
+      death_rate: 0.4
+      excision_rate: 0.0  # Retrotransposons don't excise
+      progeny_distribution: [0.20, 0, 0.50, 1, 0.30, 2]
+    # LTR:
+    #   length: 8000
+    #   frequency: 0.2  # 20% of TEs are LTRs
+    #   autonomous: true  # LTRs are typically autonomous
+    #   parasitizes: []  # Autonomous TEs don't parasitize others
+    #   death_rate: 0.5
+    #   excision_rate: 0.0  # Retrotransposons don't excise
+    #   progeny_distribution: [0.25, 0, 0.45, 1, 0.30, 2]
+    # DNA_TRANSPOSON:
+    #   length: 2000
+    #   frequency: 0.1  # 10% of TEs are DNA transposons
+    #   autonomous: true  # DNA transposons are typically autonomous
+    #   parasitizes: []  # Autonomous TEs don't parasitize others
+    #   death_rate: 0.6
+    #   excision_rate: 0.1  # DNA transposons can excise
+    #   progeny_distribution: [0.30, 0, 0.40, 1, 0.30, 2]
+
+# Example configurations for different scenarios:
+
+# Scenario 1: Only autonomous TEs (LINEs and LTRs)
+# tes:
+#   types:
+#     LINE:
+#       length: 6000
+#       frequency: 0.6
+#       autonomous: true
+#       death_rate: 0.4
+#       excision_rate: 0.0
+#       progeny_distribution: [0.20, 0, 0.50, 1, 0.30, 2]
+#     LTR:
+#       length: 8000
+#       frequency: 0.4
+#       autonomous: true
+#       death_rate: 0.5
+#       excision_rate: 0.0
+#       progeny_distribution: [0.25, 0, 0.45, 1, 0.30, 2]
+
+# Scenario 2: Only non-autonomous TEs (SINEs only - will not transpose!)
+# tes:
+#   types:
+#     SINE:
+#       length: 300
+#       frequency: 1.0
+#       autonomous: false
+#       death_rate: 0.3
+#       excision_rate: 0.0
+#       progeny_distribution: [0.15, 0, 0.55, 1, 0.30, 2]
+
+# Scenario 3: Mixed autonomous and non-autonomous TEs
+# tes:
+#   types:
+#     SINE:
+#       length: 300
+#       frequency: 0.5
+#       autonomous: false
+#       parasitizes: [LINE]
+#       death_rate: 0.3
+#       excision_rate: 0.0
+#       progeny_distribution: [0.15, 0, 0.55, 1, 0.30, 2]
+#     LINE:
+#       length: 6000
+#       frequency: 0.3
+#       autonomous: true
+#       parasitizes: []
+#       death_rate: 0.4
+#       excision_rate: 0.0
+#       progeny_distribution: [0.20, 0, 0.50, 1, 0.30, 2]
+#     LTR:
+#       length: 8000
+#       frequency: 0.2
+#       autonomous: true
+#       parasitizes: []
+#       death_rate: 0.5
+#       excision_rate: 0.0
+#       progeny_distribution: [0.25, 0, 0.45, 1, 0.30, 2]
