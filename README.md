@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # TE-Agents2: High-Performance Transposable Element Simulation
 
 **Agent-based model (ABM) of transposable elements (TEs) in the genomic ecosystem; optimized for array-based large-scale parallelized simulations with GPU acceleration.**
@@ -173,7 +172,6 @@ performance:
 **Determinism:**
 - All random operations use configurable seed
 - Seed logged in output files
-
 ---
 
 **Ready to explore genomic evolution?** Start with the [Quickstart](#quickstart) or dive into [Configuration](#configuration) for custom simulations.
