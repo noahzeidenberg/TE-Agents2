@@ -17,8 +17,8 @@ sortedcontainers>=2.4.0
 # Configuration and utilities
 pyyaml>=6.0.0
 
-# Optional GPU acceleration (uncomment if needed)
-# cupy-cuda12x>=12.0.0  # For CUDA 12.x
+# Optional GPU acceleration (uncomment if not needed)
+cupy-cuda12x>=12.0.0  # For CUDA 12.x
 # torch>=2.0.0  # Alternative GPU framework
 
 # Development and testing (optional)

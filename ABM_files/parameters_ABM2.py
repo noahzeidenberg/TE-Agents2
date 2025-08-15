@@ -4,9 +4,39 @@ Includes original parameters (https://github.com/stefan-c-kremer/TE_World2) plus
 """
 import yaml
 import os
+import argparse
+import sys
 from typing import List
 # Import specific functions to avoid circular imports
-from ABM_files.TEUtil_ABM2 import Triangle, Flat, ProbabilityTable, set_random_seed
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from TEUtil_ABM2 import Triangle, Flat, ProbabilityTable, set_random_seed
+
+def parse_arguments():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description='TE Simulation with configurable parameters',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python TESim_ABM2.py -c example_config.yaml
+  python TESim_ABM2.py --config my_simulation_config.yaml
+  python TESim_ABM2.py --help
+        """
+    )
+    
+    parser.add_argument(
+        '-c', '--config',
+        default='example_config.yaml',
+        help='Configuration file path (default: example_config.yaml)'
+    )
+    
+    # Parse arguments if this module is being run directly
+    if __name__ == "__main__":
+        return parser.parse_args()
+    else:
+        # If imported as a module, parse from sys.argv
+        return parser.parse_args(sys.argv[1:])
 
 def load_config(config_file="example_config.yaml"):
     """Load configuration from YAML file with fallback to defaults"""
@@ -22,8 +52,11 @@ def load_config(config_file="example_config.yaml"):
         print(f"Warning: Error parsing {config_file}: {e}, using defaults")
         return {}
 
-# Load configuration
-config = load_config()
+# Parse command line arguments
+args = parse_arguments()
+
+# Load configuration using command line argument
+config = load_config(args.config)
 
 # Random seed will be set after all imports are complete
 seed = None  # None for random seed, or integer for fixed (reproducible)seed
@@ -607,7 +640,7 @@ def initialize_probability_tables():
     global Host_mutation, Insertion_effect
     
     # Import vrng here to avoid circular imports
-    from ABM_files.TEUtil_ABM2 import vrng
+    from TEUtil_ABM2 import vrng
     
     # Host mutation effects (simplified for now)
     # Use simple multipliers instead of lambda functions
