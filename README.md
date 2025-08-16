@@ -132,7 +132,7 @@ python ABM_files/TESim_ABM2.py -c configuration_file.yaml
 }
 ```
 
-**License:** MIT License - see [LICENSE](LICENSE) file
+**License:** MIT License
 
 **Acknowledgements:**
 - Based on the TE_World2 simulation by Dr. Stefan Kremer (University of Guelph)
