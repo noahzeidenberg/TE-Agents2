@@ -164,5 +164,3 @@ performance:
 - All random operations use configurable seed
 - Seed logged in output files
 ---
-
-**Ready to explore genomic evolution?** Start with the [Quickstart](#quickstart) or dive into [Configuration](#configuration) for custom simulations.
