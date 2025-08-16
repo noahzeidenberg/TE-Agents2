@@ -158,11 +158,6 @@ performance:
 ```
 </details>
 
-## Visual Results
-
-![TE Dynamics Over Time](docs/te_dynamics.png)
-*Example output showing TE load evolution*
-
 ## Reproducibility
 
 **Determinism:**
