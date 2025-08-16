@@ -66,11 +66,6 @@ graph TD
 
 ## Performance & Determinism
 
-**Hardware Requirements:**
-- **Toy scale** (1000 generations): 6GB RAM, 2 CPU cores, ~5 minutes
-- **Paper scale** (10,000 generations): 8GB RAM, 8 CPU cores, ~2 hours
-- **Large scale** (100,000 generations): 32GB RAM, 16+ CPU cores, ~1 day
-
 **GPU Acceleration:**
 ```bash
 # CUDA support (recommended)
@@ -100,9 +95,10 @@ pip install torch torchvision torchaudio
 #!/bin/bash
 #SBATCH --job-name=te-simulation
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=8
-#SBATCH --mem=32G
-#SBATCH --time=24:00:00
+#SBATCH --gpus-per-node=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+#SBATCH --time=1:00:00
 #SBATCH --output=te_sim_%j.out
 #SBATCH --error=te_sim_%j.err
 
@@ -121,7 +117,7 @@ python ABM_files/TESim_ABM2.py -c configuration_file.yaml
 
 • **Stochastic variance**: Inherent variance in TE dynamics requires multiple replicates to estimate equilibria
 • **Parameter uncertainty**: TE rates based on literature estimates; experimental validation recommended; limited research applicability for non-model organisms
-• **Memory scaling**: Very large genomes (>1GB) may require chunked processing
+• **Memory scaling**: Large genomes may require chunked processing
 • **GPU memory**: CuPy requires sufficient VRAM for large simulations
 
 ## Cite / License / Acknowledgements
@@ -175,6 +171,3 @@ performance:
 ---
 
 **Ready to explore genomic evolution?** Start with the [Quickstart](#quickstart) or dive into [Configuration](#configuration) for custom simulations.
-=======
-If you're having issues with numba, I reccomend trying the requirements_exact.txt configuration.
->>>>>>> 37261d23b439e3e55c39df49abb599725109f5ef
