@@ -68,10 +68,10 @@ graph TD
 
 **GPU Acceleration:**
 ```bash
-# CUDA support (recommended)
+# CUDA support (tested)
 pip install cupy-cuda12x
 
-# PyTorch alternative
+# PyTorch alternative (untested)
 pip install torch torchvision torchaudio
 ```
 ## Data
@@ -116,8 +116,11 @@ python ABM_files/TESim_ABM2.py -c configuration_file.yaml
 ## Limitations & Known Issues
 
 • **Stochastic variance**: Inherent variance in TE dynamics requires multiple replicates to estimate equilibria
+
 • **Parameter uncertainty**: TE rates based on literature estimates; experimental validation recommended; limited research applicability for non-model organisms
+
 • **Memory scaling**: Large genomes may require chunked processing
+
 • **GPU memory**: CuPy requires sufficient VRAM for large simulations
 
 ## Cite / License / Acknowledgements
