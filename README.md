@@ -101,10 +101,11 @@ pip install torch torchvision torchaudio
 #SBATCH --time=1:00:00
 #SBATCH --output=te_sim_%j.out
 #SBATCH --error=te_sim_%j.err
+#SBATCH --array=1-1 # easy to submit as an array job for parameter perturbation tests e.g. array=1-256%8 runs this script 256 times in groups of 8. Can easily read parameter ranges you want to test from a csv and pass into 'awk' or a config file in TMP dir
 
 # Load modules
 module load python/3.10
-module load cuda/12.0
+module load cuda
 
 # Activate environment
 source /path/to/te-sim/bin/activate
